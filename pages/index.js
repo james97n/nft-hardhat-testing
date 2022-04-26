@@ -22,13 +22,19 @@ export default function App() {
   if (walletExist) {
     return (
       <>
-        <Head></Head>
+        <Head>
+          <title>NFT Boi</title>
+          <link rel="icon" href=
+            "/logos/eth.png"
+            type="image/x-icon"></link>
+        </Head>
         <Home></Home>
       </>
     )
   } else {
-    <Install></Install>
-
+    return (
+      <Install></Install>
+    )
   }
 
 }

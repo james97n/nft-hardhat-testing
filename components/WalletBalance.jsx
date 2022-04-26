@@ -13,8 +13,8 @@ function WalletBalance() {
   };
 
   return (
-    <div className="flex w-full items-center justify-center">
-      <div className='mt-40 mb-5'>
+    <div className="flex items-center justify-center my-10">
+      <div className=''>
         <h5 className="my-5 text-lg">Your Balance: {balance}</h5>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => getBalance()}>Show My Balance</button>
 

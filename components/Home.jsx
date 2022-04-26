@@ -4,19 +4,6 @@ import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import Ayaka from '../.src/artifacts/contracts/MyNFT.sol/Ayaka.json';
 
-
-// const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-
-// // const provider = new ethers.providers.Web3Provider(window.ethereum);
-// const [provider, setProvider] = useState(null);
-
-// // get the end user
-// const signer = provider.getSigner();
-
-// // get the smart contract
-// const contract = new ethers.Contract(contractAddress, Ayaka.abi, signer);
-
-
 function Home() {
 
   const [layout, setLayout] = useState(null);
@@ -24,6 +11,7 @@ function Home() {
   const [totalMinted, setTotalMinted] = useState(0);
 
   useEffect(() => {
+
     const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -33,13 +21,12 @@ function Home() {
 
     // get the smart contract
     const contract = new ethers.Contract(contractAddress, Ayaka.abi, signer);
-    // setContract(tempContract);
 
-    console.log(contract);
+    // console.log(contract);
 
     const getCount = async () => {
       const count = await contract.count();
-      console.log(parseInt(count));
+      // console.log(parseInt(count));
       setTotalMinted(parseInt(count));
     };
 
@@ -61,7 +48,7 @@ function Home() {
 
       const getMintedStatus = async () => {
         const result = await contract.isContentOwned(metadataURI);
-        console.log(result)
+        // console.log(result)
         setIsMinted(result);
       };
 
@@ -83,11 +70,11 @@ function Home() {
         alert(uri);
       }
       return (
-        <div className="card" style={{ width: '18rem' }}>
+        <div className="p-3 " >
           {/* <img className="card-img-top" src={isMinted ? imageURI : '/images/placeholder.jpg'}></img> */}
-          <img className="card-img-top" src={imageURI}></img>
-          <div className="card-body">
-            <h5 className="card-title">ID #{tokenId}</h5>
+          <img className="aspect-square" src={imageURI}></img>
+          <div className="text-center">
+            <h5 className="my-5">ID #{tokenId}</h5>
             {!isMinted ? (
               <button className="btn bg-green-500 text-white font-bold py-2 px-4 rounded" onClick={mintToken}>
                 Mint
@@ -104,12 +91,13 @@ function Home() {
 
     getCount();
 
+    useEffect
     let Layout = <>
-      <div className="row">
+      <div className="grid grid-cols-2 xl:grid-cols-3 gap-1">
         {Array(totalMinted + 1)
           .fill(0)
           .map((_, i) => (
-            <div key={i} className="col-sm">
+            <div key={i} className="col-span-1">
               <NFTImage tokenId={i} getCount={getCount} />
             </div>
           ))}
@@ -118,25 +106,24 @@ function Home() {
 
     setLayout(Layout);
 
-  }, []);
+  }, [totalMinted]);
+
+  // useEffect(() => {
+
+  // }, [totalMinted]);
 
   return (
-    <div>
-      <WalletBalance />
-
-      <h1> NFT Collection</h1>
-      <div className="container">
-        {layout}
-        {/* <div className="row">
-          {Array(totalMinted + 1)
-            .fill(0)
-            .map((_, i) => (
-              <div key={i} className="col-sm">
-                <NFTImage tokenId={i} getCount={getCount} />
-              </div>
-            ))}
-        </div> */}
+    <div className='flex h-screen'>
+      <div className='my-auto mx-10 w-full'>
+        <WalletBalance />
+        <div className='border-2 border-black m-5 p-5'>
+          <h1 className='text-lg font-medium text-center'> NFT Collection</h1>
+          <div className="">
+            {layout}
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }
