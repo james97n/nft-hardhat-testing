@@ -8,16 +8,15 @@ import { useEffect, useState } from 'react'
 
 export default function App() {
 
-  const [walletExist, setWalletExist] = useState(false);
+  const [walletExist, setWalletExist] = useState(true);
 
   useEffect(() => {
 
-    if (window.ethereum) {
-      setWalletExist(true);
+    if (!window.ethereum) {
+      setWalletExist(false);
     }
 
   })
-
 
   if (walletExist) {
     return (
